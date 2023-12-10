@@ -1,7 +1,8 @@
 package com.authentication.controllers;
 
-import com.authentication.signup.SignupEntity;
-import com.authentication.signup.SignupEntityValidation;
+import com.authentication.entity.SignupEntity;
+import com.authentication.service.SignupEntityValidation;
+import com.authentication.service.UserRegistrationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,11 @@ public class SignupController {
 
 
     private static final Logger logger = LoggerFactory.getLogger(SignupController.class);
-    private final SignupEntityValidation signupEntityValidation;
+    @Autowired
+    private  SignupEntityValidation signupEntityValidation;
+    @Autowired
+    private  UserRegistrationService registrationService;
 
-    @Autowired()
-    public SignupController(SignupEntityValidation signupEntityValidation) {
-        this.signupEntityValidation = signupEntityValidation;
-    }
 
     @PostMapping("/signup")
     public ResponseEntity<String> handlePostRequest(@RequestBody String requestBody) {
@@ -29,6 +29,7 @@ public class SignupController {
         SignupEntity signupEntity = signupEntityValidation.validateSignupDetails(requestBody);
         signupEntityValidation.validateViolations(signupEntity);
         if(signupEntity !=null){
+            registrationService.saveUserDetails(signupEntity);
             String response = "Post request received successfully";
             return new ResponseEntity<>(response, HttpStatus.OK);
         }

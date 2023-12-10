@@ -1,6 +1,7 @@
-package com.authentication.signup;
+package com.authentication.service;
 
 import com.authentication.controllers.SignupController;
+import com.authentication.entity.SignupEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolation;
@@ -19,7 +20,7 @@ public class SignupEntityValidation {
     private static final Logger logger = LoggerFactory.getLogger(SignupController.class);
 
     public SignupEntity validateSignupDetails(String signupData){
-        SignupEntity signupEntity = null;
+        SignupEntity signupEntity;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             signupEntity = objectMapper.readValue(signupData, SignupEntity.class);

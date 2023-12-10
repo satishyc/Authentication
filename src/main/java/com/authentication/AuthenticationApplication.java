@@ -1,11 +1,13 @@
-package com.authentication.controllers;
+package com.authentication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@ComponentScan("com.example")
+@ComponentScan("com.authentication")
+@EnableMongoRepositories
 public class AuthenticationApplication {
 
 	public static void main(String[] args) {

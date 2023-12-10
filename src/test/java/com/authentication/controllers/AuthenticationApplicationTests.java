@@ -1,4 +1,4 @@
-package com.example.Authentication;
+package com.authentication.controllers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

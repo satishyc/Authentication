@@ -25,7 +25,7 @@ public class SignupController {
     @PostMapping("/signup")
     public ResponseEntity<String> handlePostRequest(@RequestBody String requestBody) {
 
-        logger.debug("Received POST for signup");
+        logger.debug("Received POST Request for signup");
         SignupEntity signupEntity = signupEntityValidation.validateSignupDetails(requestBody);
         signupEntityValidation.validateViolations(signupEntity);
         if(signupEntity !=null){

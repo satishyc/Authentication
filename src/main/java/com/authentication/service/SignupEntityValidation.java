@@ -29,10 +29,7 @@ public class SignupEntityValidation {
             logger.error("Encountering an exception during the parsing of signup data, Exception Details"+ex);
             throw new IllegalArgumentException("Verify that the input JSON data does not adhere to the expected JSON format.");
         }
-        catch (Exception e) {
-            logger.error("Encountering an exception during the parsing of signup data, Exception Details"+e);
-            throw new IllegalArgumentException("Verify that the input JSON data does not adhere to the expected JSON format.");
-        }
+
        return signupEntity;
     }
     public void validateViolations(SignupEntity signupEntity){

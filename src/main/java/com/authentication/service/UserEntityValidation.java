@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,10 @@ public class UserEntityValidation {
                 throw new IllegalArgumentException(violation.getMessage());
             }
 
+        }
+        if(!EmailValidator.getInstance().isValid(userEntity.getEmailId())){
+            logger.error("Details of Signup Validation Failure: Invalid Email id : " + userEntity.getEmailId());
+            throw new IllegalArgumentException("Invalid Email id : " + userEntity.getEmailId());
         }
 
     }

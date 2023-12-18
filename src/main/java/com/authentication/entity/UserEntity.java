@@ -1,8 +1,9 @@
 package com.authentication.entity;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,28 +11,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserEntity {
     @Id
     private String id;
-    @NotBlank(message = "Username cannot be blank")
+    @NotEmpty(message = "Username cannot be blank")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     private String userName;
 
-    @NotBlank(message = "Email cannot be blank")
-    @Email(message = "Invalid email format")
+    @NotEmpty(message = "Email cannot be blank")
     private String emailId;
-    @NotBlank(message = "Password cannot be blank")
+    @NotEmpty(message = "Password cannot be blank")
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    public UserEntity() {
-        // Default constructor
-    }
-
-    // Constructor with parameters
-    public UserEntity(String id, String userName, String emailId, String password) {
-        this.id = id;
-        this.userName = userName;
-        this.emailId = emailId;
-        this.password = password;
-    }
 
     public String getUserName() {
         return userName;

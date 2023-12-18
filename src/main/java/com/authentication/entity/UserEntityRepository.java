@@ -4,9 +4,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SignupEntityRepository extends MongoRepository<SignupEntity, String> {
+public interface UserEntityRepository extends MongoRepository<UserEntity, String> {
 
-    SignupEntity findUserByUserName(String userName);
+    UserEntity findUserByUserName(String userName);
 
 
 }

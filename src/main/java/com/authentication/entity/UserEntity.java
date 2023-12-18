@@ -6,8 +6,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "signup_details")
-public class SignupEntity {
+@Document(collection = "user_details")
+public class UserEntity {
     @Id
     private String id;
     @NotBlank(message = "Username cannot be blank")
@@ -21,12 +21,12 @@ public class SignupEntity {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    public SignupEntity() {
+    public UserEntity() {
         // Default constructor
     }
 
     // Constructor with parameters
-    public SignupEntity(String id, String userName, String emailId, String password) {
+    public UserEntity(String id, String userName, String emailId, String password) {
         this.id = id;
         this.userName = userName;
         this.emailId = emailId;

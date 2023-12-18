@@ -1,7 +1,9 @@
 package com.authentication.controllers;
 
 import com.authentication.entity.UserEntity;
+import com.authentication.entity.UserLoginEntity;
 import com.authentication.service.UserEntityValidation;
+import com.authentication.service.UserLoginEntityValidation;
 import com.authentication.service.UserRegistrationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,29 +14,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1")
-public class SignupController {
-
-
-    private static final Logger logger = LoggerFactory.getLogger(SignupController.class);
+public class LoginController {
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
-    private UserEntityValidation userEntityValidation;
+    private UserRegistrationService registrationService;
     @Autowired
-    private  UserRegistrationService registrationService;
-
-
-    @PostMapping("/signup")
+    private UserLoginEntityValidation validation;
+    @PostMapping("/login")
     public ResponseEntity<String> handlePostRequest(@RequestBody String requestBody) {
+        UserLoginEntity userLoginEntity = validation.validateLoginDetails(requestBody);
+        registrationService.validateUserLogin(userLoginEntity);
 
-        logger.debug("Received POST Request for signup");
-        UserEntity userEntity = userEntityValidation.validateSignupDetails(requestBody);
-        userEntityValidation.validateViolations(userEntity);
-        if(userEntity !=null){
-            registrationService.saveUserDetails(userEntity);
-            String response = "Post request received successfully";
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("User Logged in Successful", HttpStatus.OK);
     }
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(Exception ex) {
@@ -45,5 +36,4 @@ public class SignupController {
     public ResponseEntity<String> handleGenericException(Exception ex) {
         return new ResponseEntity<>("An error occurred: ",HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 }
